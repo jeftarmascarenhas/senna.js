@@ -1494,7 +1494,7 @@ describe('App', function() {
 			.cancel();
 	});
 
-	it('should wait for pendingNavigate before removing screen on double back navigation', (done) => {
+	it('should wait for pendingNavigate before removing screen on double back navigation', () => {
 		class CacheScreen extends Screen {
 			constructor() {
 				super();
@@ -1508,10 +1508,10 @@ describe('App', function() {
 		app.addRoutes(new Route('/path2', CacheScreen));
 		app.addRoutes(new Route('/path3', CacheScreen));
 
-		app.navigate('/path1')
+		return app.navigate('/path1')
 			.then(() => app.navigate('/path2'))
 			.then(() => app.navigate('/path3'))
-			.then(() => {
+			.then((done) => {
 				var pendingNavigate;
 				app.on('startNavigate', () => {
 					pendingNavigate = app.pendingNavigate;
