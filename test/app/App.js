@@ -1519,11 +1519,15 @@ describe('App', function() {
 				});
 				app.once('endNavigate', () => {
 					if (app.isNavigationPending) {
-						assert.ok(!app.screens['/path2']);
+						assert.ok(
+							!app.screens['/path2'],
+							'Screen for route "/path2" should not be defined 1');
 						done();
 					} else {
 						pendingNavigate.thenAlways(() => {
-							assert.ok(!app.screens['/path2']);
+							assert.ok(
+							!app.screens['/path2'],
+							'Screen for route "/path2" should not be defined 2');
 							done();
 						});
 						pendingNavigate.cancel();
